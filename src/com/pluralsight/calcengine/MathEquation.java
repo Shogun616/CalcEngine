@@ -1,14 +1,22 @@
 package com.pluralsight.calcengine;
 
 public class MathEquation {
-    // Note: Getters and Setters have been added for leftVal, rightVal, and opCode
     private double leftVal;
     private double rightVal;
     private char opCode;
-    // Note: Only a Getter has been added for result. The result field should *not* be directly
-    //       changed from outside the class. The result field should only be set as a result
-    //       of calling the execute method.
     private double result;
+
+    public MathEquation() {}
+
+    public  MathEquation(char opCode){
+        this.opCode = opCode;
+    }
+
+    public MathEquation(char opCode, double leftVal, double rightVal){
+        this(opCode);
+        this.leftVal = leftVal;
+        this.rightVal = rightVal;
+    }
 
     public void execute() {
         switch (opCode) {
