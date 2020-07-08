@@ -18,6 +18,18 @@ public class Main {
 
     public static void main(String[] args) {
         performCalculations();
+
+        Divider divider = new Divider();
+        doCalculation(divider, 100.0d, 50.0d);
+
+        Adder adder = new Adder();
+        doCalculation(adder, 25.0d, 92.0d);
+    }
+
+    static void doCalculation(CalculateBase calculation, double leftVal, double rightVal) {
+        calculation.setResult(leftVal);
+        calculation.setRightVal(leftVal);
+        System.out.println("Calculation result = " + calculation.getResult());
     }
 
     static void performCalculations() {
