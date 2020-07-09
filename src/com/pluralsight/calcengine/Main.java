@@ -2,53 +2,82 @@ package com.pluralsight.calcengine;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-/*
- ************************************************************************
- * Note: If you have difficulty building the code, it's probably due to
- *       a difference in the version of the JDK used to create this
- *       project and the JDK version you have installed.
- *
- *       To fix the JDK simply click "OK" on the dialog that appears
- *       indicating that the build failed. This will open a project
- *       configuration dialog. On the project configuration dialog,
- *       select the appropriate JDK version for your setup
- ************************************************************************
- */
+
 public class Main {
 
     public static void main(String[] args) {
-        performCalculations();
+//        performCalculations();
 
-        Divider divider = new Divider();
-        doCalculation(divider, 100.0d, 50.0d);
+//        Divider divider = new Divider();
+//        doCalculation(divider, 100.0d, 50.0d);
 
-        Adder adder = new Adder();
-        doCalculation(adder, 25.0d, 92.0d);
+//        Adder adder = new Adder();
+//        doCalculation(adder, 25.0d, 92.0d);
 
-        performMoreCalculations();
+//        performMoreCalculations();
+
+        executeInteractively();
+    }
+
+    static void executeInteractively() {
+        System.out.println("Enter an operation and two numbers:");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+        String[] parts = userInput.split(" ");
+        performOperation(parts);
+    }
+
+    private static void performOperation(String[] parts) {
+        MathOperation operation = MathOperation.valueOf(parts[0].toUpperCase());
+        double leftVal = Double.parseDouble(parts[1]);
+        double rightVal = Double.parseDouble(parts[2]);
+        CalculateBase calculation = createCalculation(operation, leftVal, rightVal);
+        calculation.calculate();
+        System.out.println("Operation performed: " + operation);
+        System.out.println(calculation.getResult());
+    }
+
+    private static CalculateBase createCalculation(MathOperation operation, double leftVal, double rightVal) {
+        CalculateBase calculation = null;
+        switch(operation) {
+            case ADD:
+                calculation = new Adder(leftVal, rightVal);
+                break;
+            case SUBTRACT:
+                calculation = new Subtract(leftVal, rightVal);
+                break;
+            case MULTIPLY:
+                calculation = new Multiplier(leftVal, rightVal);
+                break;
+            case DIVIDE:
+                calculation = new Divider(leftVal, rightVal);
+                break;
+        }
+
+        return calculation;
     }
 
     private static void performMoreCalculations() {
         CalculateBase[] calculations = {
-                new Divider(100.d, 50.d),
-                new Adder(25.0, 92.0d),
-                new Subtract(225.0d,17.0d),
-                new Multiplier(11.0d,3.0d)
+                new Divider(100.0d, 50.0d),
+                new Adder(25.0d, 92.0d),
+                new Subtract(225.0d, 17.0d),
+                new Multiplier(11.0d, 3.0d)
         };
 
         System.out.println();
-        System.out.println("Array calculations");
+        System.out.println("Array Calculations");
 
-        for (CalculateBase calculation : calculations) {
+        for(CalculateBase calculation : calculations) {
             calculation.calculate();
             System.out.println("result = " + calculation.getResult());
         }
     }
 
-
     static void doCalculation(CalculateBase calculation, double leftVal, double rightVal) {
-        calculation.setResult(leftVal);
-        calculation.setRightVal(leftVal);
+        calculation.setLeftVal(leftVal);
+        calculation.setRightVal(rightVal);
+        calculation.calculate();
         System.out.println("Calculation result = " + calculation.getResult());
     }
 
@@ -71,17 +100,18 @@ public class Main {
         System.out.println();
 
         MathEquation equationOverload = new MathEquation('d');
-        double leftDouble = 9.0d;
+        double leftDouble  = 9.0d;
         double rightDouble = 4.0d;
         equationOverload.execute(leftDouble, rightDouble);
-        System.out.println("Overload result with doubles: " + equationOverload.getResult());
+        System.out.println("Overloaded result with doubles: " + equationOverload.getResult());
 
         int leftInt = 9;
         int rightInt = 4;
         equationOverload.execute(leftInt, rightInt);
-        System.out.println("Overload result with ints: " +equationOverload.getResult());
-        }
+        System.out.println("Overloaded result with ints: " + equationOverload.getResult());
     }
+}
+
 
 
 
