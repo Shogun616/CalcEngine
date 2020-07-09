@@ -6,17 +6,28 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-//        performCalculations();
+        //performCalculations();
+        // Divider divider = new Divider();
+        // doCalculation(divider, 100.0d, 50.0d);
+        // Adder adder = new Adder();
+        // doCalculation(adder, 25.0d, 92.0d);
+        // performMoreCalculations();
+        // executeInteractively();
 
-//        Divider divider = new Divider();
-//        doCalculation(divider, 100.0d, 50.0d);
+        dynamicInteractivity();
+    }
 
-//        Adder adder = new Adder();
-//        doCalculation(adder, 25.0d, 92.0d);
+    private static void dynamicInteractivity() {
+        DynamicHelper helper = new DynamicHelper(new MathProcessing[] {
+                new Adder(),
+                new PowerOf()
+        });
 
-//        performMoreCalculations();
+        System.out.println("Enter an operation and two numbers:");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
 
-        executeInteractively();
+        helper.process(userInput);
     }
 
     static void executeInteractively() {
@@ -111,6 +122,17 @@ public class Main {
         System.out.println("Overloaded result with ints: " + equationOverload.getResult());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
